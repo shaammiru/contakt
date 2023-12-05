@@ -1,0 +1,48 @@
+<div class="container p-4">
+  <div class="my-4 text-center">
+    <h1>Contact Details</h1>
+  </div>
+  <div class="table-responsive col-lg-6 mx-auto">
+    <table class="table table-hover table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row">ID</th>
+          <td>
+            <%= contact.id %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Name</th>
+          <td>
+            <%= contact.name %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Phone</th>
+          <td>
+            <%= contact.phone %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Email</th>
+          <td>
+            <%= contact.email %>
+          </td>
+        </tr>
+      </tbody>
+      <caption class="text-end">
+        <%= contact.name %>'s Contact Details
+      </caption>
+    </table>
+    <div class="d-flex justify-content-between">
+      <a href="/contacts" class="btn btn-primary">Back</a>
+      <div class="d-flex">
+        <a href="/contacts/update/<%= contact.id %>" class="btn btn-warning me-2">Edit</a>
+        <form action="/contacts/delete/<%= contact.id %>" method="POST">
+          <button type="submit" class="btn btn-danger"
+            onclick="return confirm('Are you sure want to delete this contact?')">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

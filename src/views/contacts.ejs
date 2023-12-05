@@ -1,0 +1,79 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="w-100">
+      <h1 class="my-4 text-center">Contact List</h1>
+      <% if (msg) { %>
+        <% if (msg.createSuccess != "") { %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+              <%= msg.createSuccess %>
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+        <% if (msg.updateSuccess != "") { %>
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>
+              <%= msg.updateSuccess %>
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+        <% if (msg.deleteSuccess != "") { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+              <%= msg.deleteSuccess %>
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+      <% } %>
+      <% if (contacts.length===0) { %>
+        <div class="alert alert-warning" role="alert">
+          Contacts list is empty!
+        </div>
+      <% } %>
+      <div class="table-responsive">
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% contacts.forEach((contact, i)=> { %>
+              <tr>
+                <th scope="row">
+                  <%= i + 1 %>
+                </th>
+                <th>
+                  <%= contact.id %>
+                </th>
+                <td>
+                  <%= contact.name %>
+                </td>
+                <td>
+                  <%= contact.phone %>
+                </td>
+                <td>
+                  <a href="/contacts/<%= contact.id %>"
+                    class="btn btn-primary badge rounded-pill">Details</a>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end">
+      <a href="/contacts/new" class="btn btn-success btn-lg p-2 position-fixed bottom-0 end-0 m-4 fs-6">Create
+        Contact</a>
+    </div>
+  </div>
+</div>

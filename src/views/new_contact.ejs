@@ -1,0 +1,24 @@
+<div class="container p-4">
+  <div class="my-4 text-center">
+    <h1>Create New Contact</h1>
+  </div>
+  <form action="/contacts" method="POST" class="col-lg-6 mx-auto">
+    <div class="form-group mb-4">
+      <label for="name">Name</label>
+      <input class="form-control" type="text" name="name" id="name" placeholder="e.g John Doe" required>
+    </div>
+    <div class="form-group mb-4">
+      <label for="phone">Phone</label>
+      <input class="form-control" type="text" name="phone" id="phone" placeholder="e.g 082123456789" pattern="^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$" minlength="10"
+        required>
+    </div>
+    <div class="form-group mb-4">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" name="email" id="email" placeholder="e.g name@mail.com" required>
+    </div>
+    <div class="d-flex justify-content-between form-group">
+      <a href="/contacts" class="btn btn-primary">Back</a>
+      <button type="submit" class="btn btn-success">Create</button>
+    </div>
+  </form>
+</div>
