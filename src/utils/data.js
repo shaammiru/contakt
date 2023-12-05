@@ -1,6 +1,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
+import { Storage } from "@google-cloud/storage"
 
-import { dirPath, filePath } from "./locals.js"
+import { dirPath, filePath, bucketName } from "./locals.js"
+
+const storage = new Storage({
+  keyFilename: "./service-account.json"
+})
+const bucket = storage.bucket(bucketName)
+const file = bucket.file("data/contacts.json")
 
 export const checkDataDir = () => {
   if (!existsSync(dirPath)) {
