@@ -10,7 +10,28 @@ Simple contact management web app using express js, and ejs
 4. Delete contact details
 5. Validate contact input
 6. Showing message after create, update, and delete
+7. Responsive Web
 
 ## Demo
 
-![Demo](./screenshot/express.gif)
+[Link Demo](./screenshot/express.gif)
+
+### Homepage & About
+
+![](./screenshot/home.png)
+
+### Contacts List
+
+![](./screenshot/contacts-list.png)
+
+### Contact Details
+
+![](./screenshot/contact-details.png)
+
+### Update Contact Details
+
+![](./screenshot/contact-update.png)
+
+### Contacts Deleted
+
+![](./screenshot/contact-delete.png)
