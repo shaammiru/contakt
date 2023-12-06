@@ -14,7 +14,7 @@ Simple contact management web app using express js, and ejs
 
 ## Demo
 
-[Link Demo](./screenshot/express.gif)
+[Link Demo](https://drive.google.com/file/d/1s2jFU7JOm3Dzy9cTfr9LhdAi1Wn1YOpC/view?usp=sharing)
 
 ### Homepage & About
 
