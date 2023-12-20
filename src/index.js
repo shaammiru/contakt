@@ -4,16 +4,23 @@ import expressLayouts from "express-ejs-layouts"
 import session from "express-session"
 import cookieParser from "cookie-parser"
 import flash from "connect-flash"
+import "dotenv/config"
 
 import { port } from "./utils/locals.js"
 import {
   createContact,
-  getContacts,
-  getContactById,
-  getContactDetails,
   updateContactById,
-  deleteContactById
-} from "./controllers/contacts.js"
+  deleteContactById,
+} from "./controllers/api.js"
+import {
+  getContactsPage,
+  getHomePage,
+  getAboutPage,
+  getNewContactPage,
+  getContactDetailPage,
+  getUpdateContactPage,
+  returnNotFoundPage
+} from "./controllers/page.js"
 
 const app = express()
 
@@ -30,38 +37,25 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: "secret",
-    cookie: { maxAge: 60000 }
-  })
+    cookie: { maxAge: 60000 },
+  }),
 )
 app.use(flash())
 
-app.get("/", (req, res) => {
-  res.render("home", {
-    layout: "layouts/layout",
-    title: "Home"
-  })
-})
-
-app.get("/about", (req, res) => {
-  res.render("about", {
-    layout: "layouts/layout",
-    title: "About"
-  })
-})
-
-app.get("/contacts/new", (req, res) => {
-  res.render("new_contact", {
-    layout: "layouts/layout",
-    title: "New Contact"
-  })
-})
-
+// API routes
 app.post("/contacts", createContact)
-app.get("/contacts", getContacts)
-app.get("/contacts/:id", getContactById)
-app.get("/contacts/update/:id", getContactDetails)
 app.post("/contacts/update/:id", updateContactById)
 app.post("/contacts/delete/:id", deleteContactById)
+
+// Page routes
+app.get("/", getHomePage)
+app.get("/about", getAboutPage)
+app.get("/contacts", getContactsPage)
+app.get("/contacts/new", getNewContactPage)
+app.get("/contacts/:id", getContactDetailPage)
+app.get("/contacts/update/:id", getUpdateContactPage)
+app.get("/contacts/delete/:id", deleteContactById)
+app.get("*", returnNotFoundPage)
 
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`)

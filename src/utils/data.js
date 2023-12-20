@@ -1,66 +1,64 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
-import { Storage } from "@google-cloud/storage"
+import { connectDB, Contact } from "./db.js"
 
-import { dirPath, filePath, bucketName } from "./locals.js"
+export const createData = async (data) => {
+  await connectDB()
 
-const storage = new Storage({
-  keyFilename: "./service-account.json"
-})
-const bucket = storage.bucket(bucketName)
-const file = bucket.file("data/contacts.json")
+  const newContact = new Contact({
+    name: data.name,
+    phone: data.phone,
+    email: data.email,
+    fax: data.fax || "",
+    address: data.address || "",
+    gender: data.gender || "",
+    idcard: data.idcard || "",
+    jobs: data.jobs || "",
+  })
 
-export const checkDataDir = () => {
-  if (!existsSync(dirPath)) {
-    mkdirSync(dirPath)
-  }
-
-  if (!existsSync(filePath)) {
-    writeFileSync(filePath, "[]", "utf-8")
-  }
+  return newContact.save()
 }
 
-export const loadContactsDoc = () => {
-  checkDataDir()
+export const readData = async () => {
+  await connectDB()
 
-  const file = readFileSync(filePath, "utf-8")
-  const contacts = JSON.parse(file)
-  return contacts
+  return Contact.find()
 }
 
-export const inputContactDoc = (newContact) => {
-  const contacts = loadContactsDoc()
+export const readDataById = async (id) => {
+  await connectDB()
 
-  contacts.push(newContact)
+  const contact = await Contact.findById(id)
 
-  writeFileSync(filePath, JSON.stringify(contacts))
-}
-
-export const updateContactDoc = (id, updatedContact) => {
-  const contacts = loadContactsDoc()
-
-  const index = contacts.findIndex((contact) => contact.id === id)
-
-  if (index === -1) {
+  if (!contact) {
     return false
   }
 
-  contacts[index] = updatedContact
+  return contact
+}
 
-  writeFileSync(filePath, JSON.stringify(contacts))
+export const updateDataById = async (id, data) => {
+  await connectDB()
+
+  const contactToUpdate = await Contact.findById(id)
+
+  if (!contactToUpdate) {
+    return false
+  }
+
+  contactToUpdate.set(data)
+
+  await contactToUpdate.save()
 
   return true
 }
 
-export const deleteContactDoc = (id) => {
-  const contacts = loadContactsDoc()
+export const deleteDataById = async (id) => {
+  await connectDB()
 
-  const filteredContacts = contacts.filter((contact) => contact.id !== id)
+  const deletedContact = await Contact.findByIdAndDelete(id)
 
-  if (filteredContacts.length === contacts.length) {
+  if (!deletedContact) {
     return false
   }
-
-  writeFileSync(filePath, JSON.stringify(filteredContacts))
 
   return true
 }

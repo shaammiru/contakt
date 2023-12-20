@@ -4,19 +4,64 @@
   </div>
   <form action="/contacts/update/<%= contact.id %>" method="POST" class="col-lg-6 mx-auto">
     <div class="form-group mb-4">
-      <label for="name">Name</label>
-      <input class="form-control" type="text" name="name" id="name" value="<%= contact.name %>"
-        placeholder="e.g John Doe" required>
+      <label for="name" class="mb-2">Name <span class="text-danger">*</span></label>
+      <input class="form-control" type="text" name="name" id="name" value="<%= contact.name %>" placeholder="e.g John Doe" required>
     </div>
     <div class="form-group mb-4">
-      <label for="phone">Phone</label>
-      <input class="form-control" type="text" name="phone" id="phone" value="<%= contact.phone %>"
-        placeholder="e.g 082123456789" pattern="^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$" minlength="10" required>
+      <label for="phone" class="mb-2">Phone <span class="text-danger">*</span></label>
+      <input class="form-control" type="text" name="phone" id="phone" value="<%= contact.phone %>" placeholder="e.g 082123456789"
+        pattern="^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$" minlength="10" required>
     </div>
     <div class="form-group mb-4">
-      <label for="email">Email</label>
-      <input class="form-control" type="email" name="email" id="email" value="<%= contact.email %>"
-        placeholder="e.g name@mail.com" required>
+      <label for="email" class="mb-2">Email <span class="text-danger">*</span></label>
+      <input class="form-control" type="email" name="email" id="email" value="<%= contact.email %>" placeholder="e.g name@mail.com" required>
+    </div>
+    <div class="form-group mb-4">
+      <label for="fax" class="mb-2">Fax</label>
+      <input class="form-control" type="text" name="fax" id="fax" value="<%= contact.fax %>" placeholder="e.g 212-123-1234">
+    </div>
+    <div class="form-group mb-4">
+      <label for="address" class="mb-2">Address</label>
+      <input class="form-control" type="text" name="address" id="address" value="<%= contact.address %>" placeholder="e.g Bandung">
+    </div>
+    <div class="form-group mb-4">
+      <label for="gender" class="mb-2">Gender</label>
+      <% if (contact.gender == "male") { %>
+        <div class="form-check">
+          <label for="male" class="form-check-label">Male</label>
+          <input type="radio" id="male" name="gender" class="form-check-input" value="male" checked>
+        </div>
+        <div class="form-check">
+          <label for="female" class="form-check-label">Female</label>
+          <input type="radio" id="female" name="gender" class="form-check-input" value="female">
+        </div>
+      <% } else if (contact.gender == "female") { %>
+        <div class="form-check">
+          <label for="male" class="form-check-label">Male</label>
+          <input type="radio" id="male" name="gender" class="form-check-input" value="male">
+        </div>
+        <div class="form-check">
+          <label for="female" class="form-check-label">Female</label>
+          <input type="radio" id="female" name="gender" class="form-check-input" value="female" checked>
+        </div>
+      <% } else { %>
+        <div class="form-check">
+          <label for="male" class="form-check-label">Male</label>
+          <input type="radio" id="male" name="gender" class="form-check-input" value="male">
+        </div>
+        <div class="form-check">
+          <label for="female" class="form-check-label">Female</label>
+          <input type="radio" id="female" name="gender" class="form-check-input" value="female">
+        </div>
+      <% } %>
+    </div>
+    <div class="form-group mb-4">
+      <label for="idcard" class="mb-2">ID Card</label>
+      <input class="form-control" type="text" name="idcard" id="idcard" value="<%= contact.idcard %>" placeholder="e.g 32012345">
+    </div>
+    <div class="form-group mb-4">
+      <label for="jobs" class="mb-2">Jobs</label>
+      <input class="form-control" type="text" name="jobs" id="jobs" value="<%= contact.jobs %>" placeholder="e.g Doctor">
     </div>
     <div class="d-flex justify-content-between form-group">
       <a href="/contacts/<%= contact.id %>" class="btn btn-primary">Back</a>

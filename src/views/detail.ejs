@@ -29,6 +29,58 @@
             <%= contact.email %>
           </td>
         </tr>
+        <tr>
+          <th scope="row">Fax</th>
+          <td>
+            <% if (contact.fax == "") { %>
+              -
+            <% } else { %>
+              <%= contact.fax %>
+            <% } %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Address</th>
+          <td>
+            <% if (contact.address == "") { %>
+              -
+            <% } else { %>
+              <%= contact.address %>
+            <% } %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Gender</th>
+          <td>
+            <% if (contact.gender == "male") { %>
+              Male
+            <% } else if (contact.gender == "female") { %>
+              Female
+            <% } else { %>
+               -
+            <% } %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">ID Card</th>
+          <td>
+            <% if (contact.idcard == "") { %>
+              -
+            <% } else { %>
+              <%= contact.idcard %>
+            <% } %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Jobs</th>
+          <td>
+            <% if (contact.jobs == "") { %>
+              -
+            <% } else { %>
+              <%= contact.jobs %>
+            <% } %>
+          </td>
+        </tr>
       </tbody>
       <caption class="text-end">
         <%= contact.name %>'s Contact Details

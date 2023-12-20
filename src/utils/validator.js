@@ -2,13 +2,20 @@ import { z } from "zod"
 import validator from "validator"
 
 export const contactSchema = z.object({
-  id: z.string().min(1, "ID is required"),
   name: z.string().min(1, "Name is required"),
   phone: z
     .string()
     .min(1, "Phone number is required")
-    .refine(value => validator.isMobilePhone(value, "id-ID"), "Invalid phone number"),
-  email: z.string().email("Invalid email address")
+    .refine(
+      (value) => validator.isMobilePhone(value, "id-ID"),
+      "Invalid phone number"
+    ),
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  fax: z.string().optional(),
+  address: z.string().optional(),
+  gender: z.string().optional(),
+  idcard: z.string().optional(),
+  jobs: z.string().optional()
 })
 
 export const validate = (schema, data) => {
