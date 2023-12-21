@@ -1,9 +1,15 @@
-import { connectDB, Contact } from "./db.js"
+import { db, contactSchema } from "./db.js"
 
-export const createData = async (data) => {
-  await connectDB()
+const checkContactDb = () => {
+  if (!db.models["Contact"]) {
+    db.model("Contact", contactSchema)
+  }
+}
 
-  const newContact = new Contact({
+export const createData = (data) => {
+  checkContactDb()
+
+  return db.model("Contact").create({
     name: data.name,
     phone: data.phone,
     email: data.email,
@@ -13,20 +19,18 @@ export const createData = async (data) => {
     idcard: data.idcard || "",
     jobs: data.jobs || "",
   })
-
-  return newContact.save()
 }
 
-export const readData = async () => {
-  await connectDB()
+export const readData = () => {
+  checkContactDb()
 
-  return Contact.find()
+  return db.model("Contact").find()
 }
 
 export const readDataById = async (id) => {
-  await connectDB()
+  checkContactDb()
 
-  const contact = await Contact.findById(id)
+  const contact = await db.model("Contact").findOne({ _id: id })
 
   if (!contact) {
     return false
@@ -36,29 +40,24 @@ export const readDataById = async (id) => {
 }
 
 export const updateDataById = async (id, data) => {
-  await connectDB()
+  checkContactDb()
 
-  const contactToUpdate = await Contact.findById(id)
+  const { acknowledged } = await db
+    .model("Contact")
+    .updateOne({ _id: id }, data)
 
-  if (!contactToUpdate) {
-    return false
-  }
-
-  contactToUpdate.set(data)
-
-  await contactToUpdate.save()
-
-  return true
+  return acknowledged
 }
 
 export const deleteDataById = async (id) => {
-  await connectDB()
+  checkContactDb()
 
-  const deletedContact = await Contact.findByIdAndDelete(id)
+  const deletedContact = await readDataById(id)
+  const { acknowledged } = await db.model("Contact").deleteOne({ _id: id })
 
-  if (!deletedContact) {
+  if (!acknowledged) {
     return false
   }
 
-  return true
+  return deletedContact
 }

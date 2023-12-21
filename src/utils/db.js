@@ -4,11 +4,15 @@ import { nanoid } from "nanoid"
 export const connectDB = async () => {
   await mongoose.connect(process.env.MONGO_URL, {
     minPoolSize: 10,
-    maxPoolSize: 450,
+    maxPoolSize: 400,
   })
 }
 
-const contactSchema = new mongoose.Schema({
+export const db = mongoose.connection.useDb("contact_db", {
+  useCache: true,
+})
+
+export const contactSchema = new mongoose.Schema({
   _id: {
     type: String,
     default: () => nanoid(8),
@@ -34,5 +38,3 @@ const contactSchema = new mongoose.Schema({
   idcard: String,
   jobs: String,
 })
-
-export const Contact = mongoose.model("Contact", contactSchema)
