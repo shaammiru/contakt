@@ -60,6 +60,6 @@ app.get("/contacts/update/:id", getUpdateContactPage)
 app.get("/contacts/delete/:id", deleteContactById)
 app.get("*", notFoundPage)
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
   console.log(`Server is listening on http://localhost:${port}`)
 })
