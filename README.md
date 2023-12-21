@@ -12,8 +12,9 @@ Simple contact management web app using express js, and ejs
 6. Showing message after create, update, and delete
 7. Responsive Web
 
-## Demo
+## Test/Demo
 
+[Link Aplikasi](https://contakt.vercel.app/)
 [Link Demo](https://youtu.be/ELNHXIsw8ag?si=JRPsuBRGY1Lk6wmL)
 
 ### Homepage & About
