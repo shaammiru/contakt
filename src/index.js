@@ -33,7 +33,7 @@ app.set("views", path.join(path.resolve(), "src/views"))
 app.use(expressLayouts)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static("./public"))
+app.use(express.static(path.join(path.resolve(), "public")))
 app.use(cookieParser("secret"))
 app.use(
   session({
