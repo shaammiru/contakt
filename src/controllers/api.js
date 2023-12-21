@@ -1,4 +1,4 @@
-import { returnContactNotFoundPage } from "./page.js"
+import { contactNotFoundPage } from "./page.js"
 import { validate, contactSchema } from "../utils/validator.js"
 import {
   createData,
@@ -58,7 +58,7 @@ export const updateContactById = async (req, res) => {
     const isUpdated = await updateDataById(id, result.data)
 
     if (!isUpdated) {
-      returnContactNotFoundPage(req, res)
+      return contactNotFoundPage(req, res)
     }
 
     req.flash("update_success", `Contact updated: ${result.data.name}`)
@@ -72,13 +72,13 @@ export const updateContactById = async (req, res) => {
 export const deleteContactById = async (req, res) => {
   try {
     const { id } = req.params
-    const isDeleted = await deleteDataById(id)
+    const result = await deleteDataById(id)
 
-    if (!isDeleted) {
-      returnContactNotFoundPage(req, res)
+    if (!result) {
+      return contactNotFoundPage(req, res)
     }
 
-    req.flash("delete_success", "Contact deleted")
+    req.flash("delete_success", `Contact deleted: ${result.name}`)
     res.status(200).redirect("/contacts")
   } catch (error) {
     res.status(500).send("Internal server error")

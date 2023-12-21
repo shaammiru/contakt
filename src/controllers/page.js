@@ -1,13 +1,13 @@
 import { readData, readDataById } from "../utils/data.js"
 
-export const returnNotFoundPage = (req, res) => {
+export const notFoundPage = (req, res) => {
   return res.status(404).render("404", {
     layout: "layouts/layout",
     title: "404 | Page Not Found",
   })
 }
 
-export const returnContactNotFoundPage = (req, res) => {
+export const contactNotFoundPage = (req, res) => {
   return res.status(404).render("detail_404", {
     layout: "layouts/layout",
     title: "404 | Contact Not Found",
@@ -18,7 +18,7 @@ export const getHomePage = (req, res) => {
   try {
     res.render("home", {
       layout: "layouts/layout",
-      title: "Home",
+      title: "Home | Contakt",
     })
   } catch (error) {
     console.error(error)
@@ -30,7 +30,7 @@ export const getAboutPage = (req, res) => {
   try {
     res.render("about", {
       layout: "layouts/layout",
-      title: "About",
+      title: "About | Contakt",
     })
   } catch (error) {
     console.error(error)
@@ -47,27 +47,27 @@ export const getContactsPage = async (req, res) => {
       deleteSuccess: req.flash("delete_success"),
     }
 
-    res.render("contacts", {
+    return res.render("contacts", {
       layout: "layouts/layout",
-      title: "Contacts",
+      title: "Contact List | Contakt",
       contacts,
       msg,
     })
   } catch (error) {
     console.error(error)
-    res.status(500).send("Internal server error")
+    return res.status(500).send("Internal server error")
   }
 }
 
 export const getNewContactPage = (req, res) => {
   try {
-    res.render("new_contact", {
+    return res.render("new_contact", {
       layout: "layouts/layout",
-      title: "New Contact",
+      title: "New Contact | Contakt",
     })
   } catch (error) {
     console.error(error)
-    res.status(500).send("Internal server error")
+    return res.status(500).send("Internal server error")
   }
 }
 
@@ -75,19 +75,21 @@ export const getContactDetailPage = async (req, res) => {
   try {
     const { id } = req.params
     const contact = await readDataById(id)
+    const successMsg = req.flash("update_success")
 
     if (!contact) {
-      returnContactNotFoundPage(req, res)
+      return contactNotFoundPage(req, res)
     }
 
-    res.render("detail", {
+    return res.render("detail", {
       layout: "layouts/layout",
-      title: contact.name + " | Contact",
+      title: contact.name + " | Contakt",
       contact,
+      successMsg,
     })
   } catch (error) {
     console.error(error)
-    res.status(500).send("Internal server error")
+    return res.status(500).send("Internal server error")
   }
 }
 
@@ -97,12 +99,12 @@ export const getUpdateContactPage = async (req, res) => {
     const contact = await readDataById(id)
 
     if (!contact) {
-      returnContactNotFoundPage(req, res)
+      contactNotFoundPage(req, res)
     }
 
     res.render("update_contact", {
       layout: "layouts/layout",
-      title: "Update Contact",
+      title: "Update Contact | Contakt",
       contact,
     })
   } catch (error) {

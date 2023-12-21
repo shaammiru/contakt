@@ -7,6 +7,7 @@ import flash from "connect-flash"
 import "dotenv/config"
 
 import { port } from "./utils/locals.js"
+import { connectDB } from "./utils/db.js"
 import {
   createContact,
   updateContactById,
@@ -19,8 +20,10 @@ import {
   getNewContactPage,
   getContactDetailPage,
   getUpdateContactPage,
-  returnNotFoundPage
+  notFoundPage
 } from "./controllers/page.js"
+
+connectDB()
 
 const app = express()
 
@@ -55,7 +58,7 @@ app.get("/contacts/new", getNewContactPage)
 app.get("/contacts/:id", getContactDetailPage)
 app.get("/contacts/update/:id", getUpdateContactPage)
 app.get("/contacts/delete/:id", deleteContactById)
-app.get("*", returnNotFoundPage)
+app.get("*", notFoundPage)
 
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`)

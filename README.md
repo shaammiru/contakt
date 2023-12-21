@@ -1,4 +1,4 @@
-# Express Contact App
+# Contakt
 
 Simple contact management web app using express js, and ejs
 
